@@ -26,6 +26,7 @@ fun mainMenu(): Int {
          > |          NOTE KEEPER APP          |
          > -------------------------------------
          > | NOTE MENU                         |
+         > |   0) Info on the App              |
          > |   1) Add a note                   |
          > |   2) List notes                   |
          > |   3) Update a note                |
@@ -36,7 +37,7 @@ fun mainMenu(): Int {
          > |   20) Save notes                  |
          > |   21) Load notes                  |
          > -------------------------------------
-         > |   0) Exit                         |
+         > |   100) Exit                         |
          > -------------------------------------
          > ==>> """.trimMargin(">")
     )
@@ -46,6 +47,7 @@ fun runMenu() {
     do {
         val option = mainMenu()
         when (option) {
+            0 -> info()
             1 -> addNote()
             2 -> listNotes()
             3 -> updateNote()
@@ -54,12 +56,35 @@ fun runMenu() {
             6 -> searchNotes()
             20 -> save()
             21 -> load()
-            0 -> exitApp()
+            100 -> exitApp()
             else -> println("Invalid option entered: $option")
         }
     } while (true)
 }
 
+fun info() {
+    println("---------------------------------------------------------------------------------------------")
+    println("            _____ _          _  _     _              _                                       ")
+    println("           |_   _| |_  ___  | \\| |___| |_ ___ ___   /_\\  _ __ _ __                         ")
+    println("             | | | ' \\/ -_) | .` / _ |  _/ -_(_-<  / _ \\| '_ | '_ \\                       ")
+    println("             |_| |_||_\\___| |_|\\_\\___/\\__\\___/__/ /_/ \\_| .__| .__/                    ")
+    println("                                                        |_|  |_|                             ")
+    println("---------------------------------------------------------------------------------------------")
+
+    println("                         -  Welcome to the Notes App! -                                      ")
+    println("           This app helps users to keep track of all their tasks and much more!              ")
+    println("           A Host of many features, this page will give a brief run through of them          ")
+    println("                   Add - This allows users to add notes                                      ")
+    println("                   Delete - This enables users to get rid of unwanted notes                  ")
+    println("                   List - This allows users to list their notes through various methods      ")
+    println("                   Update - This enables users to update the content of their notes          ")
+    println("                   Archive - This allows users to archive notes                              ")
+    println("                   Search - This allows users to search for notes they created               ")
+    println("---------------------------------------------------------------------------------------------")
+    println("       Please be aware that the categories for add are: Home, Life, College, Work & Other    ")
+    println("---------------------------------------------------------------------------------------------")
+
+}
 fun addNote() {
     // logger.info { "addNote() function invoked" }
     val noteTitle = readNextLine("Enter a title for the note: ")
@@ -82,6 +107,7 @@ fun listNotes() {
                   > |   1) View ALL notes          |
                   > |   2) View ACTIVE notes       |
                   > |   3) View ARCHIVED notes     |
+                  > |   4) View CATEGORIES         |
                   > --------------------------------
          > ==>> """.trimMargin(">")
         )
@@ -90,6 +116,7 @@ fun listNotes() {
             1 -> listAllNotes()
             2 -> listActiveNotes()
             3 -> listArchivedNotes()
+            // 4 -> listCategories()
             else -> println("Invalid option entered: " + option)
         }
     } else {

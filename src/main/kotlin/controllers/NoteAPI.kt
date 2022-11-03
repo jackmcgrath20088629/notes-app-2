@@ -59,6 +59,19 @@ class NoteAPI(serializerType: Serializer) {
         if (numberOfArchivedNotes() == 0) "No archived notes stored"
         else formatListString(notes.filter { note -> note.isNoteArchived })
 
+    // These functions will be used for the Section based notes
+    /*
+
+        fun listCategories(): String =
+        if (notes.isEmpty()) "No notes stored"
+        else formatListString(notes)
+
+
+            fun listArchivedNotes(): String =
+        if (numberOfArchivedNotes() == 0) "No archived notes stored"
+        else formatListString(notes.filter { note -> note.isNoteArchived })
+     */
+
     fun listNotesBySelectedPriority(priority: Int): String =
         if (notes.isEmpty()) "No notes stored"
         else {
