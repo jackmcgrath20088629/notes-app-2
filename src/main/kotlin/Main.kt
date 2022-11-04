@@ -112,20 +112,21 @@ fun addNote() {
 fun listNotes() {
     if (noteAPI.numberOfNotes() > 0) {
         val option = readNextInt(
-            """
+            (style("""
                   > --------------------------------
                   > |   1) View ALL notes          |
                   > |   2) View ACTIVE notes       |
                   > |   3) View ARCHIVED notes     |
-                  > |   4) View CATEGORIES         |
+                  > |   4) View by PRIORITY        |
                   > --------------------------------
          > ==>> """.trimMargin(">")
-        )
+        )))
 
         when (option) {
             1 -> listAllNotes()
             2 -> listActiveNotes()
             3 -> listArchivedNotes()
+            4 -> listPrior()
             // 4 -> listCategories()
             else -> println("Invalid option entered: " + option)
         }
@@ -133,6 +134,41 @@ fun listNotes() {
         println("Option Invalid - No notes stored")
     }
 }
+
+
+// secondary menu for the priorities, the style is used once again
+fun listPrior() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            (style("""
+                  > ------------------------------------------------------
+                  > |   Please enter a priority number (1 to 5)          |
+                  > |   1) - Priority Level 1
+                  > |   2) - Priority Level 2
+                  > |   3) - Priority Level 3
+                  > |   4) - Priority Level 4
+                  > |   5) - Priority Level 5
+                  > ------------------------------------------------------
+         > ==>> """.trimMargin(">")
+            )))
+
+        // Prints the notes of the priority by the number e.g the first only prints notes of prio. 1
+        when (option) {
+            1 -> println(noteAPI.listNotesBySelectedPriority(1))
+            2 -> println(noteAPI.listNotesBySelectedPriority(2))
+            3 -> println(noteAPI.listNotesBySelectedPriority(3))
+            4 -> println(noteAPI.listNotesBySelectedPriority(4))
+            5 -> println(noteAPI.listNotesBySelectedPriority(5))
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - No notes stored")
+    }
+}
+
+
+
+
 
 fun listAllNotes() {
     println(noteAPI.listAllNotes())
@@ -145,6 +181,10 @@ fun listActiveNotes() {
 fun listArchivedNotes() {
     println(noteAPI.listArchivedNotes())
 }
+
+//fun listNotesBySelectedPriority() {
+//   println(noteAPI.listNotesBySelectedPriority())
+//}
 
 fun updateNote() {
     // logger.info { "updateNotes() function invoked" }
