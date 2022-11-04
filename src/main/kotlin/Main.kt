@@ -10,6 +10,11 @@ import utils.ValidateInput.readValidCategory
 import utils.ValidateInput.readValidPriority
 import java.io.File
 import java.lang.System.exit
+//The following are the imports for the colors used they were acquired from https://github.com/ajalt/mordant
+
+import com.github.ajalt.mordant.rendering.TextColors.*
+import com.github.ajalt.mordant.rendering.TextStyles.*
+
 
 private val logger = KotlinLogging.logger {}
 // private val noteAPI = NoteAPI(XMLSerializer(File("notes.xml")))
