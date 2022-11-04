@@ -11,9 +11,9 @@ import utils.ValidateInput.readValidPriority
 import java.io.File
 import java.lang.System.exit
 //The following are the imports for the colors used they were acquired from https://github.com/ajalt/mordant
-
 import com.github.ajalt.mordant.rendering.TextColors.*
 import com.github.ajalt.mordant.rendering.TextStyles.*
+import com.github.ajalt.mordant.rendering.TextColors.Companion.rgb
 
 
 private val logger = KotlinLogging.logger {}
@@ -24,9 +24,12 @@ fun main(args: Array<String>) {
     runMenu()
 }
 
+val style = (bold + rgb("#FF5733") ) //This creates a preset of a text style that can be used throughout
+
 fun mainMenu(): Int {
     return ScannerInput.readNextInt(
-        """ 
+
+        (style(""" 
          > -------------------------------------
          > |          NOTE KEEPER APP          |
          > -------------------------------------
@@ -42,10 +45,10 @@ fun mainMenu(): Int {
          > |   20) Save notes                  |
          > |   21) Load notes                  |
          > -------------------------------------
-         > |   100) Exit                         |
+         > |   100) Exit :(                    |
          > -------------------------------------
          > ==>> """.trimMargin(">")
-    )
+    )))
 }
 
 fun runMenu() {
@@ -68,6 +71,8 @@ fun runMenu() {
 }
 
 fun info() {
+
+
     println("---------------------------------------------------------------------------------------------")
     println("            _____ _          _  _     _              _                                       ")
     println("           |_   _| |_  ___  | \\| |___| |_ ___ ___   /_\\  _ __ _ __                         ")
