@@ -67,6 +67,12 @@ class NoteAPI(serializerType: Serializer) {
             else "${numberOfNotesByPriority(priority)} notes with priority $priority: $listOfNotes"
         }
 
+  //fun listNotesAbovePrior3(priority: Int): String =
+    // if (notes.isEmpty()) "No Notes Stored"
+    // else {
+    // val listOfNotes = formatListString(notes.filter { note -> note.notePriority == priority
+
+
     fun numberOfNotes(): Int = notes.size
     fun numberOfActiveNotes(): Int = notes.count { note: Note -> !note.isNoteArchived }
     fun numberOfArchivedNotes(): Int = notes.count { note: Note -> note.isNoteArchived }

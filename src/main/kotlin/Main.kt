@@ -143,11 +143,13 @@ fun listPrior() {
             (style("""
                   > ------------------------------------------------------
                   > |   Please enter a priority number (1 to 5)          |
-                  > |   1) - Priority Level 1
-                  > |   2) - Priority Level 2
-                  > |   3) - Priority Level 3
-                  > |   4) - Priority Level 4
-                  > |   5) - Priority Level 5
+                  > |   1) - Priority Level 1                            |
+                  > |   2) - Priority Level 2                            |
+                  > |   3) - Priority Level 3                            |
+                  > |   4) - Priority Level 4                            |
+                  > |   5) - Priority Level 5                            |
+                  > ------------------------------------------------------
+                  > |   6) - 
                   > ------------------------------------------------------
          > ==>> """.trimMargin(">")
             )))
