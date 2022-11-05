@@ -20,6 +20,20 @@ object ValidateInput {
     }
 
     @JvmStatic
+    fun readValidStatus(prompt: String?): String {
+        print(prompt)
+        var input = Scanner(System.`in`).nextLine()
+        do {
+            if (StatusUtility.isValidStatus(input))
+                return input
+            else {
+                print("Invalid status $input.  Please try again: ")
+                input = Scanner(System.`in`).nextLine()
+            }
+        } while (true)
+    }
+
+    @JvmStatic
     fun readValidPriority(prompt: String?): Int {
         var input = readNextInt(prompt)
         do {
@@ -32,3 +46,4 @@ object ValidateInput {
         } while (true)
     }
 }
+

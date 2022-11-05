@@ -3,11 +3,13 @@ import models.Note
 import mu.KotlinLogging
 import persistence.JSONSerializer
 import utils.CategoryUtility
+import utils.StatusUtility
 import utils.ScannerInput
 import utils.ScannerInput.readNextInt
 import utils.ScannerInput.readNextLine
 import utils.ValidateInput.readValidCategory
 import utils.ValidateInput.readValidPriority
+import utils.ValidateInput.readValidStatus
 import java.io.File
 import java.lang.System.exit
 //The following are the imports for the colors used they were acquired from https://github.com/ajalt/mordant
@@ -100,7 +102,8 @@ fun addNote() {
     val noteTitle = readNextLine("Enter a title for the note: ")
     val notePriority = readValidPriority("Enter a priority (1-low, 2, 3, 4, 5-high): ")
     val noteCategory = readValidCategory("Enter a category for the note from ${CategoryUtility.categories}: ")
-    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, false))
+    val noteStatus = readValidStatus("Enter a status for the note from ${StatusUtility.statuses}: ")
+    val isAdded = noteAPI.add(Note(noteTitle, notePriority, noteCategory, noteStatus,false))
 
     if (isAdded) {
         println("Added Successfully")
@@ -118,6 +121,7 @@ fun listNotes() {
                   > |   2) View ACTIVE notes       |
                   > |   3) View ARCHIVED notes     |
                   > |   4) View by PRIORITY        |
+                  > |   5) View by STATUS          |
                   > --------------------------------
          > ==>> """.trimMargin(">")
         )))
@@ -127,7 +131,7 @@ fun listNotes() {
             2 -> listActiveNotes()
             3 -> listArchivedNotes()
             4 -> listPrior()
-            // 4 -> listCategories()
+            5 -> listStatus()
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -149,8 +153,6 @@ fun listPrior() {
                   > |   4) - Priority Level 4                            |
                   > |   5) - Priority Level 5                            |
                   > ------------------------------------------------------
-                  > |   6) - 
-                  > ------------------------------------------------------
          > ==>> """.trimMargin(">")
             )))
 
@@ -161,6 +163,7 @@ fun listPrior() {
             3 -> println(noteAPI.listNotesBySelectedPriority(3))
             4 -> println(noteAPI.listNotesBySelectedPriority(4))
             5 -> println(noteAPI.listNotesBySelectedPriority(5))
+            // 1 -> println(noteAPI.listNotesBySelectedStatus("Work"))
             else -> println("Invalid option entered: " + option)
         }
     } else {
@@ -168,9 +171,33 @@ fun listPrior() {
     }
 }
 
+fun listStatus() {
+    if (noteAPI.numberOfNotes() > 0) {
+        val option = readNextInt(
+            (style("""
+                  > ------------------------------------------------------
+                  > |   Please choose a status                           |
+                  > |   1) - Todo                                        |
+                  > |   2) - Doing                                       |
+                  > |   3) - Done                                        |
+                  > ------------------------------------------------------
+         > ==>> """.trimMargin(">")
+            )))
+
+        // Prints the notes based off their status
+        when (option) {
+
+            1 -> println(noteAPI.listNotesBySelectedStatus("Todo"))
+            2 -> println(noteAPI.listNotesBySelectedStatus("Doing"))
+            3 -> println(noteAPI.listNotesBySelectedStatus("Done"))
 
 
-
+            else -> println("Invalid option entered: " + option)
+        }
+    } else {
+        println("Option Invalid - No notes stored")
+    }
+}
 
 fun listAllNotes() {
     println(noteAPI.listAllNotes())
@@ -184,9 +211,9 @@ fun listArchivedNotes() {
     println(noteAPI.listArchivedNotes())
 }
 
-//fun listNotesBySelectedPriority() {
-//   println(noteAPI.listNotesBySelectedPriority())
-//}
+//fun listCategories() {
+// println(noteAPI.listCategories())
+// }
 
 fun updateNote() {
     // logger.info { "updateNotes() function invoked" }
@@ -198,9 +225,9 @@ fun updateNote() {
             val noteTitle = readNextLine("Enter a title for the note: ")
             val notePriority = readValidPriority("Enter a priority (1-low, 2, 3, 4, 5-high): ")
             val noteCategory = readValidCategory("Enter a category for the note from ${CategoryUtility.categories}: ")
-
+            val noteStatus = readValidStatus("Enter a status for the note from ${StatusUtility.statuses}: ")
             // pass the index of the note and the new note details to NoteAPI for updating and check for success.
-            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, false))) {
+            if (noteAPI.updateNote(indexToUpdate, Note(noteTitle, notePriority, noteCategory, noteStatus, false))) {
                 println("Update Successful")
             } else {
                 println("Update Failed")
